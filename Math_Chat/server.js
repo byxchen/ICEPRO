@@ -267,7 +267,6 @@ function countClientsInRoom(room){
 	}
 	return 0;
 }
-
 // updating all other clients when a client goes
 // online or offline. 
 function updatePresence(room, socket, state){
@@ -290,4 +289,4 @@ function generateId(){
 }
 
 // show a message in console
-console.log('Chat server is running and listening to port %d...', port);
+console.log('Communication ICE Server is running and listening to port %d...', port);
