@@ -124,7 +124,8 @@ angular.module('Controllers')
 			});
 		}else{
 			$scope.isMsgBoxEmpty = true;
-		}		
+		}
+		MathJax.Hub.Typeset()	
 	}
 
 	// recieving new text message
