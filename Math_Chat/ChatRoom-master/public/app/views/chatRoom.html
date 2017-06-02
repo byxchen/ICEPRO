@@ -1,13 +1,13 @@
 <!-- Full Width Column -->
 <div class="content-wrapper" style="overflow:hidden;height:100%">
-  <div class="container">
+  <div>
     <!-- Main content -->
-    <section class="content">                          
+    <section>                          
           <div class="row">
             <div class="col-sm-9">
               <div class="box box-warning direct-chat direct-chat-warning">
               <div class="box-header with-border">
-                <h3 class="box-title">Chat Room</h3>
+                <h3 class="box-title">MC² = Engagement</h3>
                 <!-- MathJax CDN from CloudFlare-->
                 <script type="text/javascript" async
                 src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
@@ -20,7 +20,7 @@
               </div><!-- /.box-header -->
               <div class="box-body">
                 <!-- Conversations are loaded here -->
-                <div class="direct-chat-messages" schroll-bottom="messeges">
+                <div class="direct-chat-messages" schroll-bottom="messeges" style="height: 500px">
                   <!-- Message. Default to the left -->
                   <div ng-repeat="messege in messeges" ng-class="{'direct-chat-msg' : true, 'right' : messege.ownMsg, 'wordwrap' : true}" >
                     <div class='direct-chat-info clearfix'>
@@ -130,9 +130,10 @@
                 <!-- Text message  -->
                 <form action="" method="post">
                   <div class="input-group">
-                    <input type="text" name="message" placeholder="Type Message ..." ng-class="{'form-control': true, 'has-error':isMsgBoxEmpty}" ng-model="chatMsg" ng-change="isMsgBoxEmpty=false" ng-enter="sendMsg()" ng-focus="setFocus" focus-me="setFocus"/>
+                    <input type="textarea" name="message" placeholder="Type Message ..." ng-class="{'form-control': true, 'has-error':isMsgBoxEmpty}" ng-model="chatMsg" ng-change="isMsgBoxEmpty=false" ng-enter="sendMsg()" ng-focus="setFocus" focus-me="setFocus"/>
                     <span class="input-group-btn">
                       <button type="button" class="btn btn-warning btn-flat" ng-click="sendMsg()">Send</button>
+                      <a href="http://byxc.me/ICE/ice.html" style="text-deocration:none"><button type="button" class="btn btn-warning btn-flat" ng-click="sendMsg()">∫∑</button></a>
                     </span>
                   </div>
                 </form>
