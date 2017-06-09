@@ -8,7 +8,9 @@
       <div class="form-group errGroup">
       </div>
       <div ng-class="{'form-group':true, 'has-feedback':true, 'has-error':isErrorReq}">         
-          <input type="text" class="form-control" placeholder="Nickname" ng-model="username" ng-change="isErrorReq=isErrorNick=false" focus-me="true"/>
+          <input id="username" type="text" class="form-control" placeholder="Username" ng-model="username" ng-change="isErrorReq=isErrorNick=false" focus-me="true" onchange="changeInitials();"/>
+          <hr>
+          <input id="nickname" type="text" class="form-control" placeholder="Initials (2 char. max)" ng-model="initials" onkeydown="limit(this);" onkeyup="limit(this);"/>
           <span ng-hide="isErrorNick"class="glyphicon glyphicon-user form-control-feedback"></span>
           <span ng-hide="!isErrorNick" class="glyphicon glyphicon-remove form-control-feedback errText"></span>
       </div>

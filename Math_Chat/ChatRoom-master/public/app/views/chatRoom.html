@@ -29,7 +29,7 @@
                     </div><!-- /.direct-chat-info -->
                     <div class="direct-chat-img" style="position:relative">
                       <img class="direct-chat-img" ng-src="app/css/dist/img/{{messege.userAvatar}}" alt="message user image"></img><!-- /.direct-chat-img -->
-                      <span style="position:absolute; z-index:99; color: white; font-size: 16px; padding-left: 12px; padding-top:8px"> {{messege.username.substring(0,2);}} </span>
+                      <span style="position:absolute; z-index:99; color: white; font-size: 16px; padding-left: 12px; padding-top:8px"> {{messege.initials}} </span>
                     </div>
                     <div ng-class="{'direct-chat-text' : true, 'text-right' : messege.ownMsg}">
                       <div ng-hide="hasFile">{{ messege.msg }}</div>
@@ -126,59 +126,48 @@
                 <div class="chat-box"></div>
               </div><!-- /.box-body -->
               <div class="box-footer">
-                <div class="box-tools pull-right desktop">
-                  <!-- Any File Select Button -->
-                  <button class="btn btn-warning btn-flat" data-widget="" ngf-select ng-model="Files"><i class="glyphicon glyphicon-paperclip"></i></button>
-                </div>
-                <!-- Text message  -->
-                <form action="" method="post">
-                  <div class="input-group">
-                  <span class="input-group-btn">
-                    <button type="button" class="accordion btn btn-warning btn-flat">☺+</button>
-                    <div class="panel">
+              <div id="panel">
                       <span style="font-color: black; font-size: 13px">
                         <div class="tab">
-                          <input class="tablinks" value="Emoji" type="button" onclick="openTab(event, 'Emoj');">
-                          <input class="tablinks" value="Maths" type="button" onclick="openTab(event, 'Math');">
-                          <input class="tablinks" value="Formulas" type="button" onclick="openTab(event, 'Form');">
+                          <input class="tablinks" value="&nbsp;&nbsp;Emoji&nbsp;|" type="button" onclick="openTab(event, 'Emoj');">
+                          <input class="tablinks" value="&nbsp;Math&nbsp;|" type="button" onclick="openTab(event, 'Math');">
+                          <input class="tablinks" value="&nbsp;Formula&nbsp;&nbsp;" type="button" onclick="openTab(event, 'Form');">
                         </div>
                         <div id="Emoj" class="tabcontent">
-                          <h3>Emoticons</h3>
-                          <input value="😃" class="emojibutton" type="button" onclick="input(this);">
+                          <input value="😃" class="emojibutton" type="button" onclick="input(this);" />
                           <input value="😆" class="emojibutton" type="button" onclick="input(this);" />
                           <input value="🙁" class="emojibutton" type="button" onclick="input(this);" />
-                          <br />
                           <input value="😋" class="emojibutton" type="button" onclick="input(this);" />
                           <input value="😣" class="emojibutton" type="button" onclick="input(this);" />
-                          <input value="😉" class="emojibutton" type="button" onclick="input(this);" />
                           <br />
+                          <input value="😉" class="emojibutton" type="button" onclick="input(this);" />
                           <input value="😵" class="emojibutton" type="button" onclick="input(this);" />
                           <input value="😢" class="emojibutton" type="button" onclick="input(this);" />
                           <input value="😤" class="emojibutton" type="button" onclick="input(this);" />
-                          <br />
                           <input value="😲" class="emojibutton" type="button" onclick="input(this);" />
+                          <br />
                           <input value="😑" class="emojibutton" type="button" onclick="input(this);" />
                           <input value="😕" class="emojibutton" type="button" onclick="input(this);" />
+                          <input value="😎" class="emojibutton" type="button" onclick="input(this);" />
+                          <input value="😇" class="emojibutton" type="button" onclick="input(this);" />
+                          <input value="😝" class="emojibutton" type="button" onclick="input(this);" />
                         </div>
 
                         <div id="Math" class="tabcontent">
-                          <h3>Math</h3>
-                          <input value="α" class="emojibutton" type="button" onclick="input(this);">
+                          <input value="α" class="emojibutton" type="button" onclick="input(this);" />
                           <input value="β" class="emojibutton" type="button" onclick="input(this);" />
                           <input value="δ" class="emojibutton" type="button" onclick="input(this);" />
-                          <br />
                           <input value="θ" class="emojibutton" type="button" onclick="input(this);" />
                           <input value="μ" class="emojibutton" type="button" onclick="input(this);" />
-                          <input value="π" class="emojibutton" type="button" onclick="input(this);" />
                           <br />
+                          <input value="π" class="emojibutton" type="button" onclick="input(this);" />
                           <input value="≈" class="emojibutton" type="button" onclick="input(this);" />
                           <input value="≠" class="emojibutton" type="button" onclick="input(this);" />
                           <input value="≡" class="emojibutton" type="button" onclick="input(this);" />
-                          <br />
                           <input value="∞" class="emojibutton" type="button" onclick="input(this);" />
+                          <br />
                           <input value="±" class="emojibutton" type="button" onclick="input(this);" />
                           <input value="∆" class="emojibutton" type="button" onclick="input(this);" />
-                          <br />
                           <input value="∫" class="emojibutton" type="button" onclick="input(this);" />
                           <input value="√" class="emojibutton" type="button" onclick="input(this);" />
                           <input value="²" class="emojibutton" type="button" onclick="input(this);" />
@@ -186,166 +175,44 @@
                           <input value="∑" class="emojibutton" type="button" onclick="input(this);" />
                           <input value="∪" class="emojibutton" type="button" onclick="input(this);" />
                           <input value="∩" class="emojibutton" type="button" onclick="input(this);" />
+                          <input value="≥" class="emojibutton" type="button" onclick="input(this);" />
+                          <input value="≤" class="emojibutton" type="button" onclick="input(this);" />
                         </div>
-
                         <div id="Form" class="tabcontent">
-                          <h3>Formulas</h3>
-                          <input value="😃" class="emojibutton" type="button" onclick="input(this);">
-                          <input value="😆" class="emojibutton" type="button" onclick="input(this);" />
-                          <input value="🙁" class="emojibutton" type="button" onclick="input(this);" />
+                          <input value='$$\int_{a}^{b} x^2 dx$$' placeholder="Integral Formula" class="formulabutton" type="button" ondblclick="input(this);" onclick="typeset(this);"/>
                           <br />
-                          <input value="😋" class="emojibutton" type="button" onclick="input(this);" />
-                          <input value="😣" class="emojibutton" type="button" onclick="input(this);" />
-                          <input value="😉" class="emojibutton" type="button" onclick="input(this);" />
+                          <input value='$$\sum_{n=1}^{\infty} 2^{-n} = 1$$' placeholder="Summation Formula" class="formulabutton" type="button" ondblclick="input(this);" onclick="typeset(this);"/>
                           <br />
-                          <input value="😵" class="emojibutton" type="button" onclick="input(this);" />
-                          <input value="😢" class="emojibutton" type="button" onclick="input(this);" />
-                          <input value="😤" class="emojibutton" type="button" onclick="input(this);" />
+                          <input value='$$\lim_{x\to\infty} f(x)$$' placeholder="Limit" class="formulabutton" type="button" ondblclick="input(this);" onclick="typeset(this);"/>
                           <br />
-                          <input value="😲" class="emojibutton" type="button" onclick="input(this);" />
-                          <input value="😑" class="emojibutton" type="button" onclick="input(this);" />
-                          <input value="😕" class="emojibutton" type="button" onclick="input(this);" />
+                          <input value='$$a_1^2 + a_2^2 = a_3^2$$' placeholder="Sub and Superscripts" class="formulabutton" type="button" ondblclick="input(this);" onclick="typeset(this);"/>
+                          <p id="previewArea">
+                            [Click Preview - Double Click Add]
+                          </p>
                         </div>
-                        <script>
-                        document.getElementById("Emoj").click();
-                        function openTab(evt, cityName) {
-                            var i, tabcontent, tablinks;
-                            tabcontent = document.getElementsByClassName("tabcontent");
-                            for (i = 0; i < tabcontent.length; i++) {
-                                tabcontent[i].style.display = "none";
-                            }
-                            tablinks = document.getElementsByClassName("tablinks");
-                            for (i = 0; i < tablinks.length; i++) {
-                                tablinks[i].className = tablinks[i].className.replace(" active", "");
-                            }
-                            document.getElementById(cityName).style.display = "block";
-                            evt.currentTarget.className += " active";
-                        }
-                        </script>
                       <span>
                     </div>
-                    <style>
-                      div.tab {
-                          overflow: hidden;
-                          border: 1px solid #ccc;
-                          background-color: #f1f1f1;
-                      }
-                      .emojibutton{
-                        height:20px;
-                        width:20px;
-                        border:none;
-                        background:none;
-                      }
-                      /* Style the buttons that are used to open and close the accordion panel */
-                      button.accordion {
-                          transition: 0.5s;
-                      }
-                      button.accordion.active, button.accordion:hover {
-                          background-color: #ffc266;
-                      }
-                      div.panel {
-                          z-index:99;
-                          background-color: #ffc266;
-                          max-height: 0;
-                          overflow: hidden;
-                          transition: max-height 0.5s ease-out;
-                      }
-                      /* Fade in tabs */
-                      @-webkit-keyframes fadeEffect {
-                          from {opacity: 0;}
-                          to {opacity: 1;}
-                      }
-
-                      @keyframes fadeEffect {
-                          from {opacity: 0;}
-                          to {opacity: 1;}
-                      }
-                      /* Style the tab */
-                      div.tab {
-                          overflow: hidden;
-                          border: 1px solid #ccc;
-                          background-color: #f1f1f1;
-                      }
-
-                      /* Style the tab */
-                      div.tab {
-                          overflow: hidden;
-                          border: 1px solid #ccc;
-                          background-color: #f1f1f1;
-                      }
-
-                      /* Style the buttons inside the tab */
-                      div.tab button {
-                          background-color: inherit;
-                          float: left;
-                          border: none;
-                          outline: none;
-                          cursor: pointer;
-                          padding: 14px 16px;
-                          transition: 0.3s;
-                          font-size: 17px;
-                      }
-
-                      /* Change background color of buttons on hover */
-                      div.tab button:hover {
-                          background-color: #ddd;
-                      }
-
-                      /* Create an active/current tablink class */
-                      div.tab button.active {
-                          background-color: #ccc;
-                      }
-
-                      /* Style the tab content */
-                      .tabcontent {
-                          padding: 6px 12px;
-                          border: 1px solid #ccc;
-                          border-top: none;
-                      }
-
-                    </style>
+                <div class="box-tools pull-right desktop">
+                  <!-- Any File Select Button -->
+                  <button class="btn btn-warning btn-flat" data-widget="" ngf-select ng-model="Files"><i class="glyphicon glyphicon-paperclip"></i></button>
+                </div>
+                <!-- Text message  -->
+                <form action="" method="post">
+                  <div class="input-group">
+                  <span class="input-group-btn" style="position:relative">
+                    <button type="button" class="accordion btn btn-warning btn-flat">☺+</button>
                   </span>
                     <input id="textArea" type="textarea" name="message" placeholder="Type Message ..." ng-class="{'form-control': true, 'has-error':isMsgBoxEmpty}" ng-model="chatMsg" ng-change="isMsgBoxEmpty=false" ng-enter="sendMsg()" ng-focus="setFocus" focus-me="setFocus"/>
                     <span class="input-group-btn">
                       <button type="button" class="btn btn-warning btn-flat" ng-click="sendMsg()">Send</button>
-                      <a href="http://byxc.me/ICE/ice.html" style="text-deocration:none"><button type="button" class="btn btn-warning btn-flat" ng-click="sendMsg()">∫∑</button></a>
+                      <a href="http://byxc.me/ICE/ice.html" style="text-decoration:none"><button type="button" class="btn btn-warning btn-flat" ng-click="sendMsg()">∫∑</button></a>
                     </span>
                   </div>
                 </form>
               </div><!-- /.box-footer-->
               </div><!-- /.box -->
             </div>
-            <script>
-            var acc = document.getElementsByClassName("accordion");
-            var i;
-            for (i = 0; i < acc.length; i++) {
-              acc[i].onclick = function() {
-                this.classList.toggle("active");
-                var panel = this.nextElementSibling;
-                if (panel.style.maxHeight){
-                  panel.style.maxHeight = null;
-                } else {
-                  panel.style.maxHeight = panel.scrollHeight + "px";
-                } 
-              }
-            }
-            function openkeyboard(){
-              //var kb = document.getElementById("VirtualKey");
-              //kb.visilibty=visible;
-              var tbInput = document.getElementById("textArea");
-              tbInput.value = "5";
-            }
-             
-            function del() {
-              var tbInput = document.getElementById("textArea");
-              tbInput.value = tbInput.value.substr(0, tbInput.value.length - 1);
-            }
-
-            function input(e){
-              var tbInput = document.getElementById("textArea");
-              tbInput.value = tbInput.value + e.value;
-            }
-            </script>
+            <script src="app/js/chatroomPlus.js"></script>
             <div class="col-sm-3 toggle-contact-list">
               <div class="box box-warning direct-chat direct-chat-warning">  
               <div class="box-header with-border">
