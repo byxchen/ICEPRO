@@ -2151,6 +2151,12 @@
         }
       };
 
+      var clickConvert = function(){
+        if (toolButtonClick('#tool_convert')) {
+          getBST();
+        }
+      };
+
       // Delete is a contextual tool that only appears in the ribbon if
       // an element has been selected
       var deleteSelected = function() {
@@ -3228,6 +3234,7 @@
           {sel:'#tool_line', fn: clickLine, evt: 'click', kAy: ['L', true]},
           {sel:'#tool_rect', fn: clickRect, evt: 'click', kAy: ['R', true], icon: 'rect'},
           {sel:'#tool_ellipse', fn: clickEllipse, evt: 'mouseup', kAy: ['C', true], icon: 'ellipse'},
+          {sel:'#tool_convert', fn: getBST, evt: 'click', kAy: ['L', true]},
           //{sel:'#tool_circle', fn: clickCircle, evt: 'mouseup', icon: 'circle'},
           //{sel:'#tool_fhellipse', fn: clickFHEllipse, evt: 'mouseup', parent: '#tools_ellipse', icon: 'fh_ellipse'},
           {sel:'#tool_path', fn: clickPath, evt: 'click', kAy: ['P', true]},

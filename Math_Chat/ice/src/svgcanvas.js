@@ -321,7 +321,6 @@ var addSvgElementFromJson = this.addSvgElementFromJson = function(data) {
   if (data.textContent != null) {    //**MDP Hack to set text Content
 			shape.textContent=data.textContent; //**MDP
 		} //**MDP
-
   return shape;
 };
 
@@ -3407,7 +3406,6 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
           }
 		  	} //MDP -- END
         return;
-        break;
       case "zoom":
         if (rubberBox != null) {
           rubberBox.setAttribute("display", "none");
@@ -9223,6 +9221,7 @@ var moveCursor = function(dx,dy) {
 					'width': 10,
 					'height': 10,
 					'id': 'math_cursor',
+          'last_item': 'math_cursor',
 					'fill': 'black',
 					'stroke': 1,
 					'stroke-width': 1,
@@ -9321,16 +9320,22 @@ var moveCursor = function(dx,dy) {
     placeMathCursor(lastMouseDown_x, lastMouseDown_y);
   }
 
-
 	this.keyPressed = function (key) {
     if (key=="\u21e6") {
-      moveCursor(-2, 0);
+      console.log("left");
+      moveCursor(-.25, 0);
       return;
     }
     if (key=="\u21e8") {
-      moveCursor(2, 0);
+      moveCursor(.25, 0);
       return;
     }
+
+    if (key == " ") {
+      moveCursor(1, 0);
+      return;
+    }
+
     if (key=="\u21e7") {
       moveCursor(0, -1);
       return;
@@ -9344,7 +9349,6 @@ var moveCursor = function(dx,dy) {
       lastKeyPress = '';
       return;
     }
-
     var shortcuts = keyHash[key];
     var newChar = false;
     var shortcutsVisible = document.getElementById("FloatingLayer").style.visibility;
@@ -9399,7 +9403,6 @@ var moveCursor = function(dx,dy) {
     var y = Number(math_cursor.getAttribute('y'));
 
     if (newChar) {
-
     	newText = addSvgElementFromJson({
       element: 'text',
     	curStyles: true,
@@ -9421,19 +9424,21 @@ var moveCursor = function(dx,dy) {
     		}
     	}
     )} else {
-        if (shortcuts[shortcutIndex].length == 1) {newText.textContent = shortcuts[shortcutIndex];}
-        else {newText.textContent = String.fromCharCode("0x"+shortcuts[shortcutIndex]); }
+        if (shortcuts[shortcutIndex].length == 1) {
+          newText.textContent = shortcuts[shortcutIndex];
+        } else {1
+          newText.textContent = String.fromCharCode("0x"+shortcuts[shortcutIndex]); 
+        }
     }
 
     svgCanvas.runExtensions('elementChanged', {
       elems: [newText]
     });
 
-		var bbox = newText.getBBox();
-		var width = bbox.width;
-		x = bbox.x;
-
-		math_cursor.setAttribute('x', x+width);
+		
+    var bbox = document.getElementById(newText.id).getBBox();
+    math_cursor.setAttribute('x', bbox.x + bbox.width + 1)
+    
 		//selectOnly([newText]);
 		//clearSelection();
 		//addToSelection([newText]);
