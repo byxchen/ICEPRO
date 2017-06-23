@@ -1,0 +1,23 @@
+{
+  "name": "mc2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "require": "^2.4.20",
+    "requirejs": "^2.3.3",
+    "express": "^3.2.6",
+    "socket.io": "^0.9.14"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "../.."
+  },
+  "author": "",
+  "license": "ISC"
+}
