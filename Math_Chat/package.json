@@ -4,9 +4,9 @@
   "description": "",
   "main": "server.js",
   "dependencies": {
+    "express": "^3.2.6",
     "require": "^2.4.20",
     "requirejs": "^2.3.3",
-    "express": "^3.2.6",
     "socket.io": "^0.9.14"
   },
   "devDependencies": {},
