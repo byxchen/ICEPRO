@@ -267,6 +267,12 @@ keyHash["|"] = ['|', '2224', '2225', '2226'];
 keyHash["["] = ['[', '230A', '2309'];
 keyHash["]"] = [']', '230B', '2308'];
 
+var down_x;
+var down_y;
+var cursor_x;
+var cursor_y;
+
+
 
 
 // Current shape style properties
@@ -2426,6 +2432,14 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
       mouse_x = pt.x * current_zoom,
       mouse_y = pt.y * current_zoom;
 
+    
+    down_x = mouse_x;
+    down_y = mouse_y
+    var math_cursor = svgCanvas.getElem('math_cursor');
+    if (math_cursor) {
+      cursor_x = math_cursor.getAttribute("x");
+      cursor_y = math_cursor.getAttribute("y");
+    }
 
     evt.preventDefault();
 
@@ -2472,6 +2486,10 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
       mouse_target = selectedElements[0];
     }
 
+
+    
+
+    
     start_transform = mouse_target.getAttribute("transform");
     var tlist = getTransformList(mouse_target);
     switch (current_mode) {
@@ -2811,9 +2829,22 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
       mouse_x = pt.x * current_zoom,
       mouse_y = pt.y * current_zoom,
       shape = getElem(getId());
-
+    
+   
     var real_x = x = mouse_x / current_zoom;
     var real_y = y = mouse_y / current_zoom;
+
+     if (!selected) {
+      var math_cursor = svgCanvas.getElem('math_cursor');
+      if(math_cursor) {
+        console.log(math_cursor.getAttribute('x'), math_cursor.getAttribute('y'));
+        var new_x = Number(cursor_x) + Number(real_x) - Number(down_x);
+        var new_y = Number(cursor_y) + Number(real_y) - Number(down_y);
+        console.log(new_x, new_y);
+        math_cursor.setAttribute('x', new_x);
+        math_cursor.setAttribute('y', new_y);
+      }
+    }
 
     if(curConfig.gridSnapping){
     //  x = snapToGrid(x);
@@ -9453,3 +9484,4 @@ var moveCursor = function(dx,dy) {
 
 
 }
+

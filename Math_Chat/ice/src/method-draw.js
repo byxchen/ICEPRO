@@ -28,8 +28,8 @@
     var is_ready = false;
     curConfig = {
       canvas_expansion: 1,
-      dimensions: [1024,768],
-      initFill: {color: 'fff', opacity: 1},
+      dimensions: [screen.availWidth,screen.availHeight],
+      initFill: {color: '000', opacity: 1},
       initStroke: {width: 1.5, color: '000', opacity: 1},
       initOpacity: 1,
       imgPath: 'images/',
@@ -46,7 +46,7 @@
   //    showRulers: (svgedit.browser.isTouch()) ? false : true,
       showRulers: false,
       show_outside_canvas: false,
-      no_save_warning: true,
+      no_save_warning: false,
       initFont: 'Helvetica, Arial, sans-serif'
     },
       uiStrings = Editor.uiStrings = {
@@ -152,6 +152,7 @@
       $("body").toggleClass("touch", svgedit.browser.isTouch());
       $("#canvas_width").val(curConfig.dimensions[0]);
       $("#canvas_height").val(curConfig.dimensions[1]);
+      
 
       var extFunc = function() {
         $.each(curConfig.extensions, function() {
@@ -286,6 +287,7 @@
         });
 
       Editor.canvas = svgCanvas = new $.SvgCanvas(document.getElementById("svgcanvas"), curConfig);
+      
       Editor.show_save_warning = false;
       Editor.paintBox = {fill: null, stroke:null, canvas:null};
       var palette = ["#444444", "#482816", "#422C10", "#3B2F0E", "#32320F",
@@ -4224,11 +4226,17 @@
       });
     };
 
+    Editor.placeMathCursor = function() {
+      console.log(1);
+      svgCanvas.placeMathCursor(200, 200);
+    };
+
     return Editor;
   }(jQuery);
 
   // Run init once DOM is loaded
   $(methodDraw.init);
+
 
 
 })();

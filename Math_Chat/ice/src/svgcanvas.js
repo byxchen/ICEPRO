@@ -61,7 +61,6 @@ if(window.opera) {
         } else if($.isArray(key)) {
           // Getting attributes from array
           var j = key.length, obj = {};
-
           while(j--) {
             var aname = key[j];
             var attr = elem.getAttribute(aname);
@@ -72,7 +71,6 @@ if(window.opera) {
             obj[aname] = attr;
           }
           return obj;
-
         } else if(typeof key === "object") {
           // Setting attributes form object
           for(var v in key) {
@@ -117,7 +115,7 @@ var svgns = "http://www.w3.org/2000/svg",
 var curConfig = {
   show_outside_canvas: true,
   selectNew: true,
-  dimensions: [640, 480]
+  //dimensions: [640, 480]7
 };
 
 // Update config with new one if given
@@ -267,6 +265,10 @@ keyHash["|"] = ['|', '2224', '2225', '2226'];
 keyHash["["] = ['[', '230A', '2309'];
 keyHash["]"] = [']', '230B', '2308'];
 
+var down_x;
+var down_y;
+var cursor_x;
+var cursor_y;
 
 
 // Current shape style properties
@@ -2437,6 +2439,15 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
       y = mouse_y / current_zoom,
       mouse_target = getMouseTarget(evt);
 
+  
+    down_x = mouse_x;
+    down_y = mouse_y
+    var math_cursor = svgCanvas.getElem('math_cursor');
+    if (math_cursor) {
+      cursor_x = math_cursor.getAttribute("x");
+      cursor_y = math_cursor.getAttribute("y");
+    }
+
     if(mouse_target.tagName === 'a' && mouse_target.childNodes.length === 1) {
       mouse_target = mouse_target.firstChild;
     }
@@ -2813,6 +2824,55 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
 
     var real_x = x = mouse_x / current_zoom;
     var real_y = y = mouse_y / current_zoom;
+
+    if (!selected) {
+      var math_cursor = svgCanvas.getElem('math_cursor');
+      if(math_cursor) {
+        var new_x = Number(cursor_x) + Number(real_x) - Number(down_x);
+        var new_y = Number(cursor_y) + Number(real_y) - Number(down_y);
+
+        var snapped = false;
+        var allElements = svgcontent.querySelectorAll('[id^="svg_eqn_"]');
+        for (var i = allElements.length - 1; i >= 0 ; i--) {
+          var height = allElements[i].getBBox().height;
+          var width = allElements[i].getBBox().width;
+          var minX = allElements[i].getBBox().x;
+          var minY = allElements[i].getBBox().y;
+          var maxX = minX + width;
+          var maxY = maxX + height;
+          var cx = minX + (width/2);
+          var cy = minY + (height/2);
+          var diffx = new_x - cx + 5.5;
+          var diffy = new_y - cy + 2;
+          var dist = Math.sqrt((diffx * diffx) + (diffy * diffy));
+          console.log()
+          if(dist < Math.max(35, height + 10)) {
+            var destX, destY;
+            destX = minX;
+            destY = cy;
+            if (diffx >= 0.4 * width) {
+              destX = maxX + 5;
+            }
+            if (diffx <= -0.4 * width) {
+              destX = minX;
+            }
+            if (diffy >= 0.4 * height) {
+              destY = minY + 6 + height;
+            }
+            if (diffy <= -0.4 * height) {
+              destY = minY + 16 - Math.min(40, height);
+            }
+            placeMathCursor(destX, destY);
+            snapped = true;
+            break;
+          }
+          
+        }
+        if(!snapped) {
+          placeMathCursor(new_x, new_y);
+        }
+      }
+    }
 
     if(curConfig.gridSnapping){
     //  x = snapToGrid(x);
@@ -3341,6 +3401,7 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
 
             // This shouldn't be necessary as it was done on mouseDown...
 //              call("selected", [selected]);
+            
           }
           // always recalculate dimensions to strip off stray identity transforms
           recalculateAllSelectedDimensions();
@@ -3385,25 +3446,50 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
               });
             }
           }
+          if(selected)
+            placeMathCursor(selected.getBBox().x, selected.getBBox().y + 11);
         }
         else { //MDP -- Math Cursor Mode on click and swipe to move cursor
-          if (Math.abs(real_x -r_start_x) < 10 && Math.abs(real_y - r_start_y) < 10) {
+          if (Math.abs(real_x -r_start_x) < 1 && Math.abs(real_y - r_start_y) < 1) {
+            var allElements = svgcontent.querySelectorAll('[id^="svg_eqn_"]');
+            for (var i = allElements.length - 1; i >= 0 ; i--) {
+              var height = allElements[i].getBBox().height;
+              var width = allElements[i].getBBox().width;
+              var minX = allElements[i].getBBox().x;
+              var minY = allElements[i].getBBox().y;
+              var maxX = minX + width;
+              var maxY = maxX + height;
+              var cx = minX + (width/2);
+              var cy = minY + (height/2);
+              var diffx = real_x - cx + 5.5;
+              var diffy = real_y - cy + 2;
+              var dist = Math.sqrt((diffx * diffx) + (diffy * diffy));
+              if(dist < height * 1.5) {
+                var destX, destY;
+                destX = minX;
+                destY = minY + 11
+                if (diffx >= 0.4 * width) {
+                  destX = maxX + 1;
+                }
+                if (diffx <= -0.4 * width) {
+                  destX = minX;
+                }
+                if (diffy >= 0.4 * height) {
+                  destY = minY + 6 + height;
+                }
+                if (diffy <= -0.4 * height) {
+                  destY = minY + 16 - height;
+                }
+                placeMathCursor(destX, destY);
+                return;
+              }
+              
+            }
 						placeMathCursor(real_x, real_y);
             lastMouseDown_x = real_x;
             lastMouseDown_y = real_y;
+
 		  		}
-          else if (real_y < r_start_y && Math.abs(real_y - r_start_y) > 5*Math.abs(real_x - r_start_x)) {
-            moveCursor(0, -1);
-          }
-          else if (real_y > r_start_y && Math.abs(real_y - r_start_y) > 5*Math.abs(real_x - r_start_x)) {
-            moveCursor(0, 1);
-          }
-          else if (real_x < r_start_x && Math.abs(real_x - r_start_x) > 5*Math.abs(real_y - r_start_y)) {
-            moveCursor(-1, 0);
-          }
-          else if (real_x > r_start_x && Math.abs(real_x - r_start_x) > 5*Math.abs(real_y - r_start_y)) {
-            moveCursor(1, 0);
-          }
 		  	} //MDP -- END
         return;
       case "zoom":
@@ -9209,7 +9295,7 @@ var moveCursor = function(dx,dy) {
   }
 };
 
-	var placeMathCursor = function (x, y) {
+	var placeMathCursor = this.placeMathCursor = function (x, y) {
 		var w=svgCanvas.getElem('math_cursor');
 		if (w==null) {
 			svgCanvas.addSvgElementFromJson({
@@ -9218,11 +9304,11 @@ var moveCursor = function(dx,dy) {
 				attr: {
 					'x': x,
 					'y': y,
-					'width': 10,
-					'height': 10,
+					'width': 2,
+					'height': 20,
 					'id': 'math_cursor',
           'last_item': 'math_cursor',
-					'fill': 'black',
+					'fill': 'grey',
 					'stroke': 1,
 					'stroke-width': 1,
 					'stroke-dasharray': null,
@@ -9322,7 +9408,6 @@ var moveCursor = function(dx,dy) {
 
 	this.keyPressed = function (key) {
     if (key=="\u21e6") {
-      console.log("left");
       moveCursor(-.25, 0);
       return;
     }
