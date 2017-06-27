@@ -25,21 +25,16 @@ function openTab(evt, cityName) {
     evt.currentTarget.className += " active";
 }
 
-var acc = document.getElementsByClassName("accordion");
-var i;
-for (i = 0; i < acc.length; i++) {
-  acc[i].onclick = function() {
-    this.classList.toggle("active");
-    var panel = document.getElementById("panel");
-    if (panel.style.maxHeight){
-      panel.style.display = "none";
-      panel.style.maxHeight = null;
-    } else {
-      panel.style.display = "block";
-      panel.style.maxHeight = panel.scrollHeight + "px";
-      openTab(event, 'Emoj');
-    } 
-  }
+function openPanel() {
+  var panel = document.getElementById("panel");
+  if (panel.style.maxHeight){
+    panel.style.display = "none";
+    panel.style.maxHeight = null;
+  } else {
+    panel.style.display = "block";
+    panel.style.maxHeight = panel.scrollHeight + "px";
+    openTab(event, 'Emoj');
+  } 
 }
 
 function openkeyboard(){
