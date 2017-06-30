@@ -6,6 +6,7 @@
  * @param {*} value value of the symbol
  */
 function Symbol(x, y, width, height, value) {
+    
     if (this.constructor === Symbol) {
         throw new Error("Abstract Class Instatiation Error");
     }
@@ -22,5 +23,26 @@ function Symbol(x, y, width, height, value) {
     for (var region in REGION_NAMES) {
         this.region[REGION_NAMES[region]] = new Expression(REGION_NAMES[region]);
     }
+    this.wall = {};
     delete(this.region.root);
+
+    
+
+
+}
+
+Symbol.prototype.setWall = function(wall) {
+    this.wall.top = wall.top;
+    this.wall.bottom = wall.bottom;
+    this.wall.left = wall.left;
+    this.wall.right = wall.right;
+}
+
+Symbol.prototype.getWallCopy = function() {
+    return {
+        'top': this.wall.top,
+        'bottom': this.wall.bottom,
+        'left': this.wall.left,
+        'right': this.wall.right,
+    };
 }

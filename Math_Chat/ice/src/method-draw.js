@@ -3391,6 +3391,7 @@
   					{key: '.', fn: function(){svgCanvas.keyPressed('.');}},
   					{key: 'space', fn: function(){svgCanvas.keyPressed(' ');}},
   					{key: '-', fn: function(){svgCanvas.keyPressed('-');}},
+            {key: String.fromCharCode(189), fn: function(){svgCanvas.keyPressed('-');}},
   					{key: 'shift+(', fn: function(){svgCanvas.keyPressed('(');}},
   					{key: 'shift+)', fn: function(){svgCanvas.keyPressed(')');}},
   					{key: '[', fn: function(){svgCanvas.keyPressed('[');}},
@@ -3831,7 +3832,7 @@
         w = Math.max(w_orig, svgCanvas.contentW * zoom * multi);
         h = Math.max(h_orig, svgCanvas.contentH * zoom * multi);
 
-        if(w == w_orig && h == h_orig) {
+        if(true || w == w_orig && h == h_orig) {
           workarea.css('overflow','hidden');
         } else {
           workarea.css('overflow','scroll');
@@ -4227,7 +4228,6 @@
     };
 
     Editor.placeMathCursor = function() {
-      console.log(1);
       svgCanvas.placeMathCursor(200, 200);
     };
 

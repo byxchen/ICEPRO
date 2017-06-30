@@ -1,5 +1,5 @@
 var PORT = process.env.OPENSHIFT_INTERNAL_PORT || 8000;
-var IP = process.env.OPENSHIFT_INTERNAL_IP || '127.0.0.1';
+var IP = process.env.OPENSHIFT_INTERNAL_IP || 'localhost';
 
 // Map that will contain for each room a list 
 var clientNeedSvgfromRoom = {};

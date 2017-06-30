@@ -10,7 +10,7 @@ var LINE = ["fraction"];
 var ROOT = ["root"];
 
 
-function getBST() {
+function getExpression() {
     var eqns = document.querySelectorAll('[id^="svg_eqn_"]');
     var items = [];
     for (i = 0; i < eqns.length; i++) {
@@ -68,6 +68,11 @@ function getBST() {
     });
     console.log(items);
     var bst = parse(items);
+    return bst;
+};
+
+function getBST() {
+    var bst = getExpression();
     console.log(bst);
     getParseTree(bst);
     var tex = getTex(bst);
